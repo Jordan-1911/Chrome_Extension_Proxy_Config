@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "Proxy Configuration Extension",
+    "version": "1.0",
+    "description": "Configure proxy settings for Chrome",
+    "permissions": [
+      "proxy",
+      "storage"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    }
+}
+   

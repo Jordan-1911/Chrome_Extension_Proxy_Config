@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Proxy Configuration</title>
+</head>
+<body>
+  <h1>Proxy Configuration</h1>
+  <form id="proxyForm">
+    <label for="proxyHost">Proxy Host:</label>
+    <input type="text" id="proxyHost" required><br><br>
+    
+    <label for="proxyPort">Proxy Port:</label>
+    <input type="number" id="proxyPort" required><br><br>
+    
+    <label for="userAgent">User Agent:</label>
+    <select id="userAgent">
+      <!-- Options will be populated via popup.js -->
+    </select><br><br>
+    
+    <button type="submit">Set Proxy</button>
+  </form>
+  <script src="popup.js"></script>
+</body>
+</html>
