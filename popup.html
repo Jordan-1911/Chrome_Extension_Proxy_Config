@@ -1,24 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Proxy Configuration</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser Fingerprint Extension</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
 </head>
 <body>
-  <h1>Proxy Configuration</h1>
+  <h1>Browser Fingerprint Extension</h1>
   <form id="proxyForm">
-    <label for="proxyHost">Proxy Host:</label>
-    <input type="text" id="proxyHost" required><br><br>
-    
-    <label for="proxyPort">Proxy Port:</label>
-    <input type="number" id="proxyPort" required><br><br>
-    
+    <label for="deviceType">Device Type:</label>
+    <select id="deviceType">
+      <option value="desktop">Desktop</option>
+      <option value="mobile">Mobile</option>
+      <option value="tablet">Tablet</option>
+    </select>
+
     <label for="userAgent">User Agent:</label>
     <select id="userAgent">
       <!-- Options will be populated via popup.js -->
-    </select><br><br>
+    </select>
+
+    <label for="proxyHost">Proxy Host:</label>
+    <input type="text" id="proxyHost" required>
     
-    <button type="submit">Set Proxy</button>
+    <label for="proxyPort">Proxy Port:</label>
+    <input type="number" id="proxyPort" required>
+    
+    <button type="submit">Apply Settings</button>
   </form>
+  <div id="browserInfo"></div>
   <script src="popup.js"></script>
 </body>
 </html>
