@@ -17,8 +17,8 @@ if errorlevel 1 (
     exit /b 1
 )
 
-:: Install requests library if not already installed
-pip install requests
+:: Install requirements
+pip install -r requirements.txt
 
 :: Run the Python script to download FingerprintJS
 python download_fingerprintjs.py

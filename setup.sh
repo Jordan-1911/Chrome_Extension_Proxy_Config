@@ -17,8 +17,8 @@ then
     exit 1
 fi
 
-# Install requests library if not already installed
-pip3 install requests
+# Install requirements
+pip3 install -r requirements.txt
 
 # Run the Python script to download FingerprintJS
 python3 download_fingerprintjs.py
