@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const deviceTypeSelect = document.getElementById('deviceType');
   const userAgentSelect = document.getElementById('userAgent');
   const proxyForm = document.getElementById('proxyForm');
-  const browserInfoDiv = document.getElementById('browserInfo');
+  const fingerprintInfoDiv = document.getElementById('fingerprintInfo');
 
   // Populate device types
   deviceTypeSelect.addEventListener('change', function() {
@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, (response) => {
       if (response.success) {
         alert("Proxy settings and User Agent updated successfully!");
-        displayBrowserFingerprint();
       } else {
         alert("Failed to update settings.");
       }
@@ -63,13 +62,46 @@ document.addEventListener('DOMContentLoaded', function() {
     const result = await fp.get();
 
     let infoHTML = '<h2>Browser Fingerprint</h2>';
-    infoHTML += `<p><strong>Visitor ID:</strong> ${result.visitorId}</p>`;
     
-    for (const [key, value] of Object.entries(result.components)) {
-      infoHTML += `<p><strong>${key}:</strong> ${JSON.stringify(value)}</p>`;
-    }
+    // Display Headers/User Agent
+    infoHTML += '<h3>Headers/User Agent</h3>';
+    infoHTML += `<p><strong>User Agent:</strong> ${result.components.userAgent.value}</p>`;
 
-    browserInfoDiv.innerHTML = infoHTML;
+    // Display WebRTC status
+    infoHTML += '<h3>WebRTC Status</h3>';
+    infoHTML += `<p><strong>WebRTC Enabled:</strong> ${result.components.webRtcSupport ? 'Yes' : 'No'}</p>`;
+
+    // Display Operating System
+    infoHTML += '<h3>Operating System</h3>';
+    infoHTML += `<p><strong>OS:</strong> ${result.components.os ? result.components.os.value : 'Not available'}</p>`;
+
+    // Display CPU Info
+    infoHTML += '<h3>CPU Information</h3>';
+    infoHTML += `<p><strong>CPU Cores:</strong> ${result.components.hardwareConcurrency ? result.components.hardwareConcurrency.value : 'Not available'}</p>`;
+
+    // Display other relevant information
+    infoHTML += '<h3>Additional Information</h3>';
+    infoHTML += `<p><strong>Time Zone:</strong> ${result.components.timezone ? result.components.timezone.value : 'Not available'}</p>`;
+    infoHTML += `<p><strong>Screen Resolution:</strong> ${result.components.screenResolution ? result.components.screenResolution.value.join('x') : 'Not available'}</p>`;
+    infoHTML += `<p><strong>Color Depth:</strong> ${result.components.colorDepth ? result.components.colorDepth.value : 'Not available'}</p>`;
+    infoHTML += `<p><strong>Device Memory:</strong> ${result.components.deviceMemory ? result.components.deviceMemory.value + ' GB' : 'Not available'}</p>`;
+    infoHTML += `<p><strong>Languages:</strong> ${result.components.languages ? result.components.languages.value.join(', ') : 'Not available'}</p>`;
+
+    // Display Canvas and WebGL Fingerprints
+    infoHTML += '<h3>Fingerprints</h3>';
+    infoHTML += `<p><strong>Canvas Fingerprint:</strong> ${result.components.canvas ? result.components.canvas.value : 'Not available'}</p>`;
+    infoHTML += `<p><strong>WebGL Vendor:</strong> ${result.components.webGlVendorAndRenderer ? result.components.webGlVendorAndRenderer.value.split('~')[0] : 'Not available'}</p>`;
+    infoHTML += `<p><strong>WebGL Renderer:</strong> ${result.components.webGlVendorAndRenderer ? result.components.webGlVendorAndRenderer.value.split('~')[1] : 'Not available'}</p>`;
+
+    // Display Fonts
+    infoHTML += '<h3>Fonts</h3>';
+    infoHTML += `<p><strong>Installed Fonts:</strong> ${result.components.fonts ? result.components.fonts.value.join(', ') : 'Not available'}</p>`;
+
+    // Display Visitor ID
+    infoHTML += '<h3>Visitor ID</h3>';
+    infoHTML += `<p><strong>Unique Visitor ID:</strong> ${result.visitorId}</p>`;
+
+    fingerprintInfoDiv.innerHTML = infoHTML;
   }
 
   // Display initial browser fingerprint
